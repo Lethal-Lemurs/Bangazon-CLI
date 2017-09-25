@@ -9,6 +9,7 @@ In this group project, you will be allowing a user to interact with a basic prod
 ### Main Menu
 
 ```bash
+I am a pretty pink princess -DW
 *********************************************************
 **  Welcome to Bangazon! Command Line Ordering System  **
 *********************************************************
