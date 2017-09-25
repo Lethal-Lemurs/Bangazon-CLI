@@ -1,0 +1,26 @@
+{
+  "name": "bangazon-cli-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:reset": "node db/database.js",
+    "start": "node bin/bangazon",
+    "test": "mocha -R list --watch"
+  },
+  "bin": {
+    "bangazon": "bin/bangazon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "prompt": "^1.0.0",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3"
+  }
+}

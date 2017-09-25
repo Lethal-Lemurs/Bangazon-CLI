@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+// Must type `chmod +x <filename>` to make this possible
+
+'use strict';
+
+require('../app/cli')
