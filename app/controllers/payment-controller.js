@@ -1,16 +1,16 @@
 'use strict';
 
 const prompt = require('prompt');
-
-module.exports.promptNewPaymentType = () => {
+//Prompts user for payment info SS
+module.exports.prompt_new_payment_type = () => {
   return new Promise( (resolve, reject) => {
     prompt.get([{
-      name: 'Account Number',
-      description: 'Enter Account Number:',
+      name: 'account_number',
+      description: 'Enter Account Number',
       type: 'string',
       required: true
     }, {
-      name: 'Payment Method',
+      name: 'payment_type',
       description: 'Enter a Supported Payment Method: (Visa, Mastercard, Paypal)',
       type: 'string',
       required: true

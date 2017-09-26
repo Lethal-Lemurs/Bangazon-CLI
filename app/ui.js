@@ -10,9 +10,9 @@ prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
 const { promptNewCustomer } = require('./controllers/customer-controller');
-const { promptNewPaymentType } = require('./controllers/payment-controller')
+const { prompt_new_payment_type } = require('./controllers/payment-controller')
 const { addToDatabase } = require('./models/Customer.js');
-const { addPaymentDatabase } = require('./models/payment.js');
+const { add_payment_database } = require('./models/payment.js');
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
@@ -27,9 +27,9 @@ let mainMenuHandler = (err, userInput) => {
   } else if (userInput === '2'){
 
   } else if (userInput.choice === '3'){
-    promptNewPaymentType()
-    .then( (paymentData) => {
-      addPaymentDatabase(paymentData);
+    prompt_new_payment_type()
+    .then( (payment_data) => {
+      add_payment_database(payment_data);
     })
   } else if (userInput === '4'){
 
