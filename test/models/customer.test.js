@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert: { isFunction, isObject } } = require('chai');
+const { assert: { isFunction, isArray } } = require('chai');
 const customer = require('../../app/models/Customer.js');
 
 // Test written by GV, DB, JS, SS.
@@ -13,9 +13,15 @@ describe('Customer.js', () => {
     });
   });
 
-  describe('get_cust_database', () => {
+  describe('show_all_customers', () => {
     it('should exist', () => {
-      isFunction(customer.get_cust_database);
+      isFunction(customer.show_all_customers);
+    });
+
+    it('returns data', () => {
+      return customer.show_all_customers().then( (data) => {
+        isArray(data);
+      })
     });
   });
 

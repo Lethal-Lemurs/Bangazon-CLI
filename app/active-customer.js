@@ -5,6 +5,7 @@ let active_customer = {
 }
 
 module.exports.set_active_customer = (id) => {
+  console.log("??", id);
   active_customer.id = id;
 }
 
