@@ -1,9 +1,34 @@
-const sqlite3 = require('sqlite3');
+const sqlite3 = require('sqlite3').verbose();
+// const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const { customers } = require('../data/customers');
-let db;
+const db = new sqlite3.Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
+// let db;
+console.log(path.join(__dirname, '..', 'db', 'bangazon.sqlite'))
 
-(function createDb() {
+
+function createDb() {
   // http://stackoverflow.com/questions/27766734/dealing-with-relative-paths-with-node-js
-  db = new sqlite3.Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'), createTables);
-}());
+  // db = new sqlite3.Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'), 
+
+  db.run(`DROP TABLE IF EXISTS customers`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS customers (
+    user_id INTEGER PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    street TEXT NOT NULL,
+    city TEXT NOT NULL,
+    state TEXT NOT NULL,
+    zip TEXT NOT NULL,
+    phone TEXT NOT NULL)`)
+  
+  customers.forEach(({ first_name, last_name, street, city, state, zip, phone}) => {
+      db.run(`INSERT INTO customers (first_name, last_name, street, city, state, zip, phone)
+    VALUES ("${first_name}", "${last_name}", "${street}", "${city}", "${state}", "${zip}", "${phone}")`);
+  });
+
+};
+
+createDb();
+
