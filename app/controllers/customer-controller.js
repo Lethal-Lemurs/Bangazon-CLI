@@ -2,7 +2,7 @@
 
 const prompt = require('prompt');
 
-module.exports.promptNewCustomer = () => {
+module.exports.prompt_new_customer = () => {
   return new Promise( (resolve, reject) => {
     prompt.get([{
       name: 'name',
@@ -41,7 +41,7 @@ module.exports.promptNewCustomer = () => {
   });
 };
 
-module.exports.promptActiveCustomer = () => {
+module.exports.prompt_active_customer = () => {
   return new Promise( (resolve, reject) => {
   
   });
