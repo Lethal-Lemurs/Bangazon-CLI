@@ -27,7 +27,6 @@ let main_menu_handler = (err, user_input) => {
   } else if (user_input.choice === '2'){
     prompt_active_customer()
     .then( (cust_data) => {
-      console.log("??", cust_data);
       set_active_customer(cust_data.id);
     });
   }
