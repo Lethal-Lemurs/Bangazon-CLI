@@ -7,15 +7,15 @@ const customer = require('../../app/models/Customer.js');
 // tests addToDatabase and getCustDatabase in models/Customer.js
 describe('Customer.js', () => {
   
-  describe('addToDatabase', () => {
+  describe('add_to_database', () => {
     it('should exist', () => {
-      isFunction(customer.addToDatabase);
+      isFunction(customer.add_to_database);
     });
   });
 
-  describe('getCustDatabase', () => {
+  describe('get_cust_database', () => {
     it('should exist', () => {
-      isFunction(customer.getCustDatabase);
+      isFunction(customer.get_cust_database);
     });
   });
 
