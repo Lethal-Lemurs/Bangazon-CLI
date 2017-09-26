@@ -10,3 +10,8 @@ console.log(`Active Customer in Payment.js`, getActiveCustomer().id);
 let activeId = getActiveCustomer().id;
 
 //function attempted by SS
+module.exports.addPaymentDatabase = (paymentData) => {
+  db.run(`INSERT INTO paymentTypes (account_number, payment_type, customer_id) VALUES(
+    "${paymentData.account_number}", "${paymentData.payment_type}", "${activeId}"
+  )`);
+};

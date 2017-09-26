@@ -5,33 +5,13 @@ const prompt = require('prompt');
 module.exports.promptNewPaymentType = () => {
   return new Promise( (resolve, reject) => {
     prompt.get([{
-      name: 'name',
-      description: 'Enter customer name (First Last)',
+      name: 'Account Number',
+      description: 'Enter Account Number:',
       type: 'string',
       required: true
     }, {
-      name: 'street',
-      description: 'Enter street address',
-      type: 'string',
-      required: true
-    }, {
-      name: 'city',
-      description: 'Enter city',
-      type: 'string',
-      required: true
-    }, {
-      name: 'state',
-      description: 'Enter state (KY)',
-      type: 'string',
-      required: true
-    }, {
-      name: 'zip',
-      description: 'Enter postal code',
-      type: 'string',
-      required: true
-    }, {
-      name: 'phone',
-      description: 'Enter phone number (xxx-yyy-zzzz)',
+      name: 'Payment Method',
+      description: 'Enter a Supported Payment Method: (Visa, Mastercard, Paypal)',
       type: 'string',
       required: true
     }], function(err, results) {

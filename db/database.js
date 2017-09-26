@@ -24,11 +24,9 @@ function createDb() {
     phone TEXT NOT NULL)`)
   db.run(`CREATE TABLE IF NOT EXISTS paymentTypes (
     payType_id INTEGER NOT NULL PRIMARY KEY,
-    account_number INT NOT NULL,
-    user_id INT NULL,
-    transactionType_id INT NULL,
-      FOREIGN KEY (user_id) REFERENCES users(user_id),
-      FOREIGN KEY (transactionType_id) REFERENCES transactionType(tranType_id))`);
+    account_number TEXT NOT NULL,
+    payment_type TEXT NOT NULL,
+    customer_id TEXT NOT NULL)`);
   
   customers.forEach(({ first_last, street, city, state, zip, phone}) => {
       db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone)
