@@ -40,3 +40,9 @@ module.exports.promptNewCustomer = () => {
     })
   });
 };
+
+module.exports.promptActiveCustomer = () => {
+  return new Promise( (resolve, reject) => {
+  
+  });
+};

@@ -9,21 +9,21 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
-const { promptNewCustomer } = require('./controllers/customerCtrl')
+const { promptNewCustomer } = require('./controllers/customer-controller');
+const { addToDatabase } = require('./models/Customer.js');
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  console.log("user input", userInput);
-  // This could get messy quickly. Maybe a better way to parse the input?
-  if(userInput = '1') {
+  if (userInput = '1') {
     promptNewCustomer()
     .then( (custData) => {
-      console.log('customer data to save', custData );
-      //save customer to db
+      addToDatabase(custData);
     });
+  } else if (userInput = '2'){
+
   }
 };
 

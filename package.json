@@ -6,7 +6,7 @@
   "scripts": {
     "db:reset": "node db/database.js",
     "start": "node bin/bangazon",
-    "test": "mocha -R list --watch"
+    "test": "mocha --recursive --watch -R list"
   },
   "bin": {
     "bangazon": "bin/bangazon"
