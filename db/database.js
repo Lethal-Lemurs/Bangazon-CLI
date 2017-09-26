@@ -15,17 +15,16 @@ function createDb() {
 
   db.run(`CREATE TABLE IF NOT EXISTS customers (
     user_id INTEGER PRIMARY KEY,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
+    first_last TEXT NOT NULL,
     street TEXT NOT NULL,
     city TEXT NOT NULL,
     state TEXT NOT NULL,
     zip TEXT NOT NULL,
     phone TEXT NOT NULL)`)
   
-  customers.forEach(({ first_name, last_name, street, city, state, zip, phone}) => {
-      db.run(`INSERT INTO customers (first_name, last_name, street, city, state, zip, phone)
-    VALUES ("${first_name}", "${last_name}", "${street}", "${city}", "${state}", "${zip}", "${phone}")`);
+  customers.forEach(({ first_last, street, city, state, zip, phone}) => {
+      db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone)
+    VALUES ("${first_last}", "${street}", "${city}", "${state}", "${zip}", "${phone}")`);
   });
 
 };
