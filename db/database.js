@@ -12,6 +12,7 @@ function createDb() {
   // db = new sqlite3.Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'), 
 
   db.run(`DROP TABLE IF EXISTS customers`);
+  db.run(`DROP TABLE IF EXISTS paymentTypes`);
 
   db.run(`CREATE TABLE IF NOT EXISTS customers (
     user_id INTEGER PRIMARY KEY,
@@ -21,6 +22,13 @@ function createDb() {
     state TEXT NOT NULL,
     zip TEXT NOT NULL,
     phone TEXT NOT NULL)`)
+  db.run(`CREATE TABLE IF NOT EXISTS paymentTypes (
+    payType_id INTEGER NOT NULL PRIMARY KEY,
+    account_number INT NOT NULL,
+    user_id INT NULL,
+    transactionType_id INT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(user_id),
+      FOREIGN KEY (transactionType_id) REFERENCES transactionType(tranType_id))`);
   
   customers.forEach(({ first_last, street, city, state, zip, phone}) => {
       db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone)
