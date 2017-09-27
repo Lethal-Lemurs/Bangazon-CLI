@@ -16,3 +16,11 @@ module.exports.add_to_database = (new_cust_data) => {
     "${new_cust_data.phone}"
   )`);
 };
+
+module.exports.show_all_customers = () => {
+  return new Promise( (resolve, reject) => {
+  db.all(`SELECT user_id, first_last FROM customers`, (err, cust_data) => {
+    resolve(cust_data)
+  });
+ });
+} 
