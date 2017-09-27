@@ -1,6 +1,7 @@
 'use strict';
-
+const {red, magenta, blue} = require("chalk");
 const prompt = require('prompt');
+const { show_all_customers } = require('../models/customer.js');
 
 module.exports.prompt_new_customer = () => {
   return new Promise( (resolve, reject) => {
@@ -43,6 +44,21 @@ module.exports.prompt_new_customer = () => {
 
 module.exports.prompt_active_customer = () => {
   return new Promise( (resolve, reject) => {
-  
+    show_all_customers()
+    .then( (cust_data) => {
+        cust_data.forEach(function(user){
+          console.log(`  ${magenta(user.user_id)}: ${user.first_last}`);
+        })
+        prompt.get([{
+          name: 'id',
+          description: 'Please select a customer by id'
+        }], function(err, results) {
+          if (err) reject(err);
+          resolve(results);
+        });
+    })
+    .catch( (err) => {
+      console.log(err);
+    })
   });
 };
