@@ -10,8 +10,10 @@ console.log(path.join(__dirname, '..', 'db', 'bangazon.sqlite'))
 function create_db() {
   // http://stackoverflow.com/questions/27766734/dealing-with-relative-paths-with-node-js
   // db = new sqlite3.Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'), 
+
   db.serialize( () => {
     db.run(`DROP TABLE IF EXISTS customers`);
+    db.run(`DROP TABLE IF EXISTS paymentTypes`);
   
     db.run(`CREATE TABLE IF NOT EXISTS customers (
       user_id INTEGER PRIMARY KEY,
@@ -21,6 +23,11 @@ function create_db() {
       state TEXT NOT NULL,
       zip TEXT NOT NULL,
       phone TEXT NOT NULL)`)
+    db.run(`CREATE TABLE IF NOT EXISTS paymentTypes (
+      payType_id INTEGER NOT NULL PRIMARY KEY,
+      account_number TEXT NOT NULL,
+      payment_type TEXT NOT NULL,
+      customer_id TEXT NOT NULL)`);
     
     customers.forEach(({ first_last, street, city, state, zip, phone}) => {
         db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone)
