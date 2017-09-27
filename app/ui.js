@@ -48,11 +48,6 @@ let main_menu_handler = (err, user_input) => {
             prompt_products_choice();
         })
   };
- 
-  
-
-
-  }
 };
 
 module.exports.display_welcome = () => {
