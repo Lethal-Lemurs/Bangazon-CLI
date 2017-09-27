@@ -6,9 +6,8 @@ const { get_active_customer, no_active_customer } = require('../active-customer'
 
 
 
-
+// This method written by DW 
 module.exports.prompt_new_product = () => {
-  console.log(get_active_customer());
   if(get_active_customer().id !== null){
     return new Promise( (resolve, reject) => {
       prompt.get([{
@@ -38,6 +37,7 @@ module.exports.prompt_new_product = () => {
     ]);
   });
   } else {
+    // This weird thing was told to us by Jufe
     return new Promise( (resolve, reject) => {
     no_active_customer();
     const { display_welcome } = require('../ui');

@@ -20,6 +20,9 @@ module.exports.add_to_database = (new_cust_data) => {
 module.exports.show_all_customers = () => {
   return new Promise( (resolve, reject) => {
   db.all(`SELECT user_id, first_last FROM customers`, (err, cust_data) => {
+    // console.log("console of logs", cust_data);
+    // let customer_length = cust_data.length;
+    // console.log(customer_length);
     resolve(cust_data)
   });
  });

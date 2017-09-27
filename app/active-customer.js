@@ -1,12 +1,18 @@
 'use strict';
 
+
 let active_customer = {
   id: null
 }
 
 module.exports.set_active_customer = (id) => {
-  active_customer.id = id;
-}
+  return new Promise( (resolve, reject) => {
+    active_customer.id = id;
+    console.log("You have selected customer ID of", active_customer.id);
+    const { display_welcome } = require('./ui');
+    display_welcome();
+  });
+};
 
 module.exports.get_active_customer = () => active_customer;
 
