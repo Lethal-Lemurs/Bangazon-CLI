@@ -1,18 +1,18 @@
 'use strict';
 const { Database } = require('sqlite3').verbose();
-const { setActiveCustomer, getActiveCustomer } = require('../active-customer');
+const { set_active_customer, get_active_customer } = require('../active-customer');
 const path = require('path');
 
 const db = new Database(path.join(__dirname, '..', '..', 'db', 'bangazon.sqlite'));
 
 // function written by GV, DB, JS, SS.
-module.exports.addToDatabase = (newCustData) => {
+module.exports.add_to_database = (new_cust_data) => {
   db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone) VALUES(
-    "${newCustData.name}",
-    "${newCustData.street}",
-    "${newCustData.city}",
-    "${newCustData.state}",
-    "${newCustData.zip}",
-    "${newCustData.phone}"
+    "${new_cust_data.name}",
+    "${new_cust_data.street}",
+    "${new_cust_data.city}",
+    "${new_cust_data.state}",
+    "${new_cust_data.zip}",
+    "${new_cust_data.phone}"
   )`);
 };

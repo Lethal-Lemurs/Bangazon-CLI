@@ -9,15 +9,21 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
+<<<<<<< HEAD
 const { promptNewCustomer } = require('./controllers/customer-controller');
 const { prompt_new_payment_type } = require('./controllers/payment-controller')
 const { addToDatabase } = require('./models/Customer.js');
 const { add_payment_database } = require('./models/payment.js');
+=======
+const { prompt_new_customer } = require('./controllers/customer-controller');
+const { add_to_database } = require('./models/Customer.js');
+>>>>>>> master
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
 
+<<<<<<< HEAD
 let mainMenuHandler = (err, userInput) => {
   if (userInput.choice === '1') {
     promptNewCustomer()
@@ -32,17 +38,26 @@ let mainMenuHandler = (err, userInput) => {
       add_payment_database(payment_data);
     })
   } else if (userInput === '4'){
+=======
+let main_menu_handler = (err, user_input) => {
+  if (user_input = '1') {
+    prompt_new_customer()
+    .then( (cust_data) => {
+      add_to_database(cust_data);
+    });
+  } else if (user_input = '2'){
+>>>>>>> master
 
   }
 };
 
-module.exports.displayWelcome = () => {
-  let headerDivider = `${magenta('*********************************************************')}`
+module.exports.display_welcome = () => {
+  let header_divider = `${magenta('*********************************************************')}`
   return new Promise( (resolve, reject) => {
     console.log(`
-  ${headerDivider}
+  ${header_divider}
   ${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}
-  ${headerDivider}
+  ${header_divider}
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
@@ -53,6 +68,6 @@ module.exports.displayWelcome = () => {
     prompt.get([{
       name: 'choice',
       description: 'Please make a selection'
-    }], mainMenuHandler );
+    }], main_menu_handler );
   });
 };
