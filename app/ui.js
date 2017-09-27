@@ -36,12 +36,12 @@ let main_menu_handler = (err, user_input) => {
     .then( (cust_data) => {
       set_active_customer(cust_data.id);
     });
-  } else if (userInput.choice === '3'){
+  } else if (user_input.choice === '3'){
     prompt_new_payment_type()
     .then( (payment_data) => {
       add_payment_database(payment_data);
     })
-  } else if (userInput === '4'){
+  } else if (user_input === '4'){
 
 
   }
