@@ -10,7 +10,7 @@ prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
 const { prompt_new_customer, prompt_active_customer } = require('./controllers/customer-controller');
-const { add_to_database } = require('./models/Customer.js');
+const { add_to_database } = require('./models/customer.js');
 const { set_active_customer } = require('./active-customer.js');
 
 
