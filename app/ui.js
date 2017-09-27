@@ -10,8 +10,10 @@ prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
 const { prompt_new_customer, prompt_active_customer } = require('./controllers/customer-controller');
-const { add_to_database } = require('./models/customer.js');
-const { set_active_customer } = require('./active-customer.js');
+const { add_to_database } = require('./models/customer');
+const { set_active_customer, active_customer } = require('./active-customer');
+const { no_active_customer } = require('./active-customer-handler');
+const { prompt_new_product, prompt_products_choice } = require('./controllers/product-controller');
 
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
@@ -19,17 +21,22 @@ const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 prompt.start();
 
 let main_menu_handler = (err, user_input) => {
-  if (user_input.choice === '1') {
-    prompt_new_customer()
-    .then( (cust_data) => {
-      add_to_database(cust_data);
+    if (user_input.choice === '1'){
+      prompt_new_customer()
+        .then( (cust_data) => {
+        add_to_database(cust_data);
     });
-  } else if (user_input.choice === '2'){
-    prompt_active_customer()
-    .then( (cust_data) => {
-      set_active_customer(cust_data.id);
+    } else if (user_input.choice === '2'){
+      prompt_active_customer()
+        .then( (cust_data) => {
+        set_active_customer(cust_data.id);
     });
-  }
+    } else if (user_input.choice === '4'){
+          prompt_new_product()
+            .then( () => {
+            prompt_products_choice();
+        })
+  };
 };
 
 module.exports.display_welcome = () => {

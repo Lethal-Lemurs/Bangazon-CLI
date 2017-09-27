@@ -9,3 +9,9 @@ module.exports.set_active_customer = (id) => {
 }
 
 module.exports.get_active_customer = () => active_customer;
+
+module.exports.no_active_customer = () => {
+  
+    console.log('No Active Customer Currently!');
+    
+};
