@@ -9,14 +9,21 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
+
+
+const { prompt_new_payment_type } = require('./controllers/payment-controller')
+const { add_payment_database } = require('./models/payment.js');
 const { prompt_new_customer, prompt_active_customer } = require('./controllers/customer-controller');
 const { add_to_database } = require('./models/customer.js');
 const { set_active_customer } = require('./active-customer.js');
 
 
+
+
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
+
 
 let main_menu_handler = (err, user_input) => {
   if (user_input.choice === '1') {
@@ -29,6 +36,14 @@ let main_menu_handler = (err, user_input) => {
     .then( (cust_data) => {
       set_active_customer(cust_data.id);
     });
+  } else if (user_input.choice === '3'){
+    prompt_new_payment_type()
+    .then( (payment_data) => {
+      add_payment_database(payment_data);
+    })
+  } else if (user_input === '4'){
+
+
   }
 };
 
