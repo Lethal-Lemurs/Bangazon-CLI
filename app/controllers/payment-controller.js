@@ -1,6 +1,7 @@
 'use strict';
 
 const prompt = require('prompt');
+
 //Prompts user for payment info SS
 module.exports.prompt_new_payment_type = () => {
   return new Promise( (resolve, reject) => {

@@ -9,15 +9,14 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
-
-
 const { prompt_new_payment_type } = require('./controllers/payment-controller')
 const { add_payment_database } = require('./models/payment.js');
 const { prompt_new_customer, prompt_active_customer } = require('./controllers/customer-controller');
 const { add_to_database } = require('./models/customer.js');
-const { set_active_customer } = require('./active-customer.js');
-
-
+const { set_active_customer, get_active_customer } = require('./active-customer.js');
+const active = require('../active-customer');
+//gets the active id
+let active_id = active.get_active_customer().id;
 
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
@@ -39,11 +38,17 @@ let main_menu_handler = (err, user_input) => {
   } else if (user_input.choice === '3'){
     prompt_new_payment_type()
     .then( (payment_data) => {
-      add_payment_database(payment_data);
+      add_payment_database(payment_data, active_id);
     })
   } else if (user_input === '4'){
 
+  } else if (user_input === '5'){
+    if(get_active_customer() === NaN || null || undefined){
+      display_welcome();
+      console.log(`Please select an active user`);
+    } else {
 
+    }
   }
 };
 
