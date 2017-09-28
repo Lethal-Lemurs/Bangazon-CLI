@@ -50,7 +50,7 @@ const { get_active_customer, no_active_customer } = require('../active-customer'
 };
 
 module.exports.active_products_prompt = (active_customer_products) => {
-  for(let i = 1; i < active_customer_products.length; i++) {
+  for(let i = 0; i < active_customer_products.length; i++) {
     console.log(`  ${red(active_customer_products[i].product_id)}: ${active_customer_products[i].product_name}`);
   };
   module.exports.product_options();
