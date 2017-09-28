@@ -1,5 +1,5 @@
 'use strict';
-const {red, magenta, blue, green} =  require('chalk');
+const {red, magenta, blue, green, cyan} =  require('chalk');
 const prompt = require('prompt');
 const { add_product_database, show_active_products } = require('../models/product');
 const { get_active_customer, no_active_customer } = require('../active-customer');
@@ -49,15 +49,18 @@ const { get_active_customer, no_active_customer } = require('../active-customer'
   };
 };
 
-module.exports.active_products_prompt = () => {
-  // console log the active users products
+module.exports.active_products_prompt = (active_customer_products) => {
+  for(let i = 1; i < active_customer_products.length; i++) {
+    console.log(`  ${red(active_customer_products[i].product_id)}: ${active_customer_products[i].product_name}`);
+  };
+  module.exports.product_options();
 };
 
 let product_menu_handler = (err, user_input) => {
   if(user_input.choice === "1") {
-    module.exports.show_active_products(get_active_customer().id)
+    show_active_products(get_active_customer().id)
     .then( (active_customer_products) => {
-      module.exports.active_products_prompt(active_customer_product);
+      module.exports.active_products_prompt(active_customer_products);
     });
   } else if (user_input.choice === "2") {
     module.exports.prompt_new_product()
@@ -81,8 +84,7 @@ let product_menu_handler = (err, user_input) => {
 module.exports.product_options = () => {
   if(get_active_customer().id !== null){
     return new Promise( (resolve, reject) => {
-      let choose_options = `${green('Product Options:')}`
-      console.log(`${choose_options}
+      console.log(`${green('Product Options:')}
   ${magenta('1.')} See your products
   ${magenta('2.')} Create product
   ${magenta('3.')} Edit product by Id
