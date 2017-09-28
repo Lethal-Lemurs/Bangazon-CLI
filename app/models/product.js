@@ -30,8 +30,7 @@ module.exports.show_all_products = () => {
 
 module.exports.show_active_products = (customer_id) => {
   return new Promise( (resolve, reject) => {
-    db.all(`SELECT * FROM products
-            WHERE products.user_id = customer_id`, (err, active_prod_data) => {
+    db.all(``, (err, active_prod_data) => {
       resolve(active_prod_data);
     }); 
   });
