@@ -2,9 +2,6 @@
 const chai = require('chai');
 const { assert, assert: { isFunction, equal, isObject, deepEqual, isString } } = require('chai');
 const pay = require('../../app/models/payment');
-const active = require('../../app/active-customer');
-//gets the active id
-let active_id = active.get_active_customer().id;
 
 let tests = [
   { account_number: "234", payment_type: "Visa", customer_id: "1" }
@@ -22,7 +19,13 @@ describe('Payments-Model', ()=>{
       isFunction(pay.add_payment_database);
     });
     it('should add to database', ()=>{
-      pay.get_payment_type("4")
+      pay.add_payment_database(tests[0], tests[0].customer_id)
+      .then(()=>{
+        pay.get_payment_type("1")
+        .then((data)=>{
+          isString(data)
+        })
+      })
     });
   });
   describe('get_payment_type', ()=>{
@@ -37,3 +40,4 @@ describe('Payments-Model', ()=>{
     })
   })
 })
+//only thing that could reasonably be added is TODO: test returns from using prompt functionality.
