@@ -4,18 +4,18 @@ const chai = require('chai');
 const { assert, assert: { isFunction, equal, isObject, deepEqual } } = require('chai');
 const chai_as_promised = require("chai-as-promised");
 chai.use(chai_as_promised);
-const { prompt_new_product, product_options } = require('../../app/controllers/product-controller');
+const { prompt_new_product, product_options, active_products_prompt } = require('../../app/controllers/product-controller');
 
 describe('product-controller.js', () => {
   
-  // describe('prompt_new_product', () => {
-  //   it('should be a function?', () => {
-  //     isFunction(prompt_new_product)
-  //   });
-  //   // it('should be a promise', () => {
+  describe('prompt_new_product', () => {
+    it('should be a function?', () => {
+      isFunction(prompt_new_product)
+    });
+    // it('should be a promise', () => {
 
-  //   // })
-  // });
+    // })
+  });
 
   describe('product_options', () => {
     it('should be a function', () => {
@@ -23,11 +23,11 @@ describe('product-controller.js', () => {
     });
   });
 
-  // describe('', () => {
-  //   it('should be a function', () => {
-  //     isFunction();
-  //   });
-  // });
+  describe('active_products_prompt', () => {
+    it('should be a function', () => {
+      isFunction(active_products_prompt);
+    });
+  });
 
   
 });

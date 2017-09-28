@@ -1,11 +1,11 @@
 'use strict';
-const {red, magenta, blue, rainbow} =  require('chalk');
+const {red, magenta, blue, green} =  require('chalk');
 const prompt = require('prompt');
-const { add_product_database } = require('../models/product');
+const { add_product_database, show_active_products } = require('../models/product');
 const { get_active_customer, no_active_customer } = require('../active-customer');
 
 // This method written by DW 
-let prompt_new_product = () => {
+ module.exports.prompt_new_product = () => {
   if(get_active_customer().id !== null){
     return new Promise( (resolve, reject) => {
       prompt.get([{
@@ -24,12 +24,14 @@ let prompt_new_product = () => {
         name: 'price',
         description: 'Enter the price of said product',
         type: 'string',
+        pattern: /^[0-9\.]+$/,
         required: true
       },
       {
         name: 'quantity',
         description: 'Enter the quantity of said product',
         type: 'integer',
+        pattern: /^[0-9]+$/,
         required: true
       } 
     ], function(err, results) {
@@ -38,29 +40,40 @@ let prompt_new_product = () => {
     });
   });
   } else {
-    // This weird thing was told to us by Jufe
     return new Promise( (resolve, reject) => {
-    no_active_customer();
-    const { display_welcome } = require('../ui');
-    display_welcome();
+      no_active_customer();
+      // This weird thing was told to us by Jufe
+      const { display_welcome } = require('../ui');
+      display_welcome();
     });
-  }
-}
+  };
+};
+
+module.exports.active_products_prompt = () => {
+  // console log the active users products
+};
 
 let product_menu_handler = (err, user_input) => {
   if(user_input.choice === "1") {
-
+    module.exports.show_active_products(get_active_customer().id)
+    .then( (active_customer_products) => {
+      module.exports.active_products_prompt(active_customer_product);
+    });
   } else if (user_input.choice === "2") {
-    prompt_new_product().then( (new_prod_data) => {
-      // console.log("??", new_prod_data);
-      add_product_database(new_prod_data, get_active_customer().id);
+    module.exports.prompt_new_product()
+    .then( (new_prod_data) => {
+      add_product_database(new_prod_data, get_active_customer().id)
+      .then( () => {
+        module.exports.product_options();
+      });
     });
   } else if (user_input.choice === "3") {
 
   } else if (user_input.choice === "4") {
 
-  } else if (user_input.coice === "5") {
-
+  } else if (user_input.choice === "5") {
+      const { display_welcome } = require('../ui');
+      display_welcome();
   }
 
 }
@@ -68,8 +81,8 @@ let product_menu_handler = (err, user_input) => {
 module.exports.product_options = () => {
   if(get_active_customer().id !== null){
     return new Promise( (resolve, reject) => {
-      let choose_options = `${blue('Choose a Option!')}`
-      console.log(` ${choose_options}
+      let choose_options = `${green('Product Options:')}`
+      console.log(`${choose_options}
   ${magenta('1.')} See your products
   ${magenta('2.')} Create product
   ${magenta('3.')} Edit product by Id
@@ -81,11 +94,11 @@ module.exports.product_options = () => {
         }], product_menu_handler);
     })
   } else {
-    // This weird thing was told to us by Jufe
     return new Promise( (resolve, reject) => {
-    no_active_customer();
-    const { display_welcome } = require('../ui');
-    display_welcome();
+      no_active_customer();
+      // This weird thing was told to us by Jufe
+      const { display_welcome } = require('../ui');
+      display_welcome();
     });
   }
 }
