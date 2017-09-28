@@ -22,12 +22,22 @@ function create_db() {
       city TEXT NOT NULL,
       state TEXT NOT NULL,
       zip TEXT NOT NULL,
-      phone TEXT NOT NULL)`)
+      phone TEXT NOT NULL)`);
+
     db.run(`CREATE TABLE IF NOT EXISTS paymentTypes (
       payType_id INTEGER NOT NULL PRIMARY KEY,
       account_number TEXT NOT NULL,
       payment_type TEXT NOT NULL,
       customer_id TEXT NOT NULL)`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS products (
+      product_id INTEGER NOT NULL PRIMARY KEY,
+      product_name TEXT NOT NULL,
+      product_description TEXT NOT NULL,
+      product_price TEXT NOT NULL,
+      user_id INTEGER NULL,
+      product_qty INTEGER NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES customers(user_id))`);  
     
     customers.forEach(({ first_last, street, city, state, zip, phone}) => {
         db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone)
