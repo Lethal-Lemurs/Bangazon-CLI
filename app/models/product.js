@@ -23,6 +23,7 @@ module.exports.add_product_database = (new_prod_data, user_id) => {
 module.exports.show_all_products = () => {
   return new Promise( (resolve, reject) => {
     db.all(`SELECT product_id, product_name FROM products`, (err, prod_data) => {
+      if (err) return reject(err);
       resolve(prod_data)
     });
   });
@@ -31,6 +32,7 @@ module.exports.show_all_products = () => {
 module.exports.show_active_products = (customer_id) => {
   return new Promise( (resolve, reject) => {
     db.all(`SELECT * FROM products WHERE user_id = ${customer_id}`, (err, active_prod_data) => {
+      if (err) return reject(err); 
       resolve(active_prod_data);
     }); 
   });
