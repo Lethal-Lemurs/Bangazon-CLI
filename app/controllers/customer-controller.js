@@ -54,6 +54,7 @@ module.exports.prompt_active_customer = () => {
           description: 'Please select a customer by id'
         }], function(err, results) {
           if (err) reject(err);
+          
           resolve(results);
         });
     })

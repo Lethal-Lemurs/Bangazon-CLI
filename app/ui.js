@@ -37,7 +37,7 @@ let main_menu_handler = (err, user_input) => {
       .then( (cust_data) => {
         set_active_customer(cust_data.id)
         .then( (active_id)  => {
-          console.log('active');
+          // console.log('active');
             return_active_customer(active_id);
           })
     });
