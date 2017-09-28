@@ -27,3 +27,16 @@ module.exports.show_all_customers = () => {
   });
  });
 } 
+module.exports.return_active_customer = (active_customer_id) => {
+  console.log("console of id", active_customer_id);
+  return new Promise( (resolve, reject) => {
+  // db.all(`SELECT first_last FROM customers WHERE user_id = ${id}`, (err, active_data) => {
+    // let customer_length = cust_data.length;
+    // console.log(customer_length);
+    
+    resolve(active_customer_id)
+    // });
+  }).catch( (err) => {
+    console.log(err);
+  })
+} 

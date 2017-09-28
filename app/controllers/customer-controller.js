@@ -1,7 +1,7 @@
 'use strict';
 const {red, magenta, blue} = require("chalk");
 const prompt = require('prompt');
-const { show_all_customers } = require('../models/customer.js');
+const { show_all_customers, select_active_customer } = require('../models/customer.js');
 
 module.exports.prompt_new_customer = () => {
   return new Promise( (resolve, reject) => {
