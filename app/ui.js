@@ -18,8 +18,7 @@ const { product_options } = require('./controllers/product-controller');
 const { prompt_new_order } = require('./controllers/order-controller');
 const { show_all_products } = require('./models/product')
 const active = require('./active-customer');
-//gets the active id
-let active_id = active.get_active_customer().id;
+
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
@@ -39,7 +38,7 @@ let main_menu_handler = (err, user_input) => {
     } else if (user_input.choice === '3'){
       prompt_new_payment_type()
       .then( (payment_data) => {
-        add_payment_database(payment_data, active_id);
+        add_payment_database(payment_data, active.get_active_customer().id);
       })
     } else if (user_input.choice === '4'){
       product_options();
