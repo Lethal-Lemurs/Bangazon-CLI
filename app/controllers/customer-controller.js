@@ -50,7 +50,7 @@ module.exports.prompt_active_customer = () => {
         cust_data.forEach(function(user){
           console.log(`  ${magenta(user.user_id)}: ${user.first_last}`);
         })
-        let regex = new RegExp("^[1-" + cust_data.length + "]+$");
+        let regex = new RegExp("^[1-" + cust_data.length + "]$");
         console.log(regex);
 
         prompt.get([{
