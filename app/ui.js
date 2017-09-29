@@ -12,7 +12,7 @@ prompt.message = colors.blue("Bangazon Corp");
 const { prompt_new_payment_type } = require('./controllers/payment-controller')
 const { add_payment_database } = require('./models/payment.js');
 const { prompt_new_customer, prompt_active_customer } = require('./controllers/customer-controller');
-const { add_to_database } = require('./models/customer');
+const { add_to_database, return_active_customer } = require('./models/customer');
 const { set_active_customer, active_customer } = require('./active-customer');
 const { product_options } = require('./controllers/product-controller');
 
@@ -29,7 +29,11 @@ let main_menu_handler = (err, user_input) => {
     } else if (user_input.choice === '2'){
       prompt_active_customer()
       .then( (cust_data) => {
-        set_active_customer(cust_data.id);
+        set_active_customer(cust_data.id)
+        .then( (active_id)  => {
+          // console.log('active');
+            return_active_customer(active_id);
+          })
     });
     } else if (user_input.choice === '3'){
       prompt_new_payment_type()
