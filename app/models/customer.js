@@ -35,8 +35,7 @@ module.exports.return_active_customer = (active_customer_id, display_welcome) =>
         console.log('customer length', cust_data.length);
         if (active_customer_id == undefined || active_customer_id > cust_data.length) {
           console.log("Please choose a valid id.");
-          const { display_welcome } = require('../ui');
-          display_welcome();
+          module.exports.show_all_customers();
         }
       })
   db.all(`SELECT * FROM customers WHERE user_id = ${active_customer_id}`, (err, active_data) => {

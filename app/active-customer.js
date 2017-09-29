@@ -7,6 +7,7 @@ let active_customer = {
 
 module.exports.set_active_customer = (id) => {
   return new Promise( (resolve, reject) => {
+    
     active_customer.id = id;
     console.log("You have selected customer ID of", active_customer.id);
     const { display_welcome } = require('./ui');
