@@ -12,3 +12,9 @@ module.exports.get_orders = (active_id) => {
     db.all('SELECT * FROM orders')
   })
 }
+//function to insert into the active customers open order table. TODO: Store product data?
+module.exports.add_orders_to_active = (active_id, customer_pay_type, time) => {
+  return new Promise((resolve, reject) => {
+    db.run(`INSERT INTO orders (customer_id, payment_type_id, order_date) VALUES( ${active_id}, ${customer_pay_type}, ${time})`)
+  })
+}

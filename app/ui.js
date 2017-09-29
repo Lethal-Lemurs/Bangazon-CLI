@@ -10,12 +10,13 @@ prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
 const { prompt_new_payment_type } = require('./controllers/payment-controller')
-const { add_payment_database } = require('./models/payment.js');
+const { add_payment_database } = require('./models/payment');
 const { prompt_new_customer, prompt_active_customer } = require('./controllers/customer-controller');
-
 const { add_to_database } = require('./models/customer');
 const { set_active_customer, active_customer } = require('./active-customer');
 const { product_options } = require('./controllers/product-controller');
+const { prompt_new_order } = require('./controllers/order-controller');
+const { show_all_products } = require('./models/product')
 const active = require('./active-customer');
 //gets the active id
 let active_id = active.get_active_customer().id;
@@ -42,15 +43,9 @@ let main_menu_handler = (err, user_input) => {
       })
     } else if (user_input.choice === '4'){
       product_options();
-    } else if (user_input === '5'){
-      if(get_active_customer() === NaN || null || undefined){
-        display_welcome();
-        console.log(`Please select an active user`);
-      } else {
-
-      }
+    } else if (user_input.choice === '5'){
+      prompt_new_order();
     }
-
 };
 
 module.exports.display_welcome = () => {

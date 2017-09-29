@@ -17,3 +17,6 @@ describe('Orders Model', ()=>{
 
   })
 })
+// INSERT INTO products (product_name, product_description, 
+//   product_price, user_id, product_qty) 
+//   VALUES( "banana", "fruit", "1", 1, 1)
