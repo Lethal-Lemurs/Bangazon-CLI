@@ -1,7 +1,7 @@
 'use strict';
 const {red, magenta, blue, green, cyan} =  require('chalk');
 const prompt = require('prompt');
-const { add_product_database, show_active_products } = require('../models/product');
+const { add_product_database, show_active_products, remove_product } = require('../models/product');
 const { get_active_customer, no_active_customer } = require('../active-customer');
 
 // This method written by DW 
@@ -56,6 +56,19 @@ module.exports.active_products_prompt = (active_customer_products) => {
   module.exports.product_options();
 };
 
+module.exports.remove_products_prompt = () => {
+  return new Promise( (resolve, reject) => {
+    prompt.get([{
+      name: 'choice',
+      description: 'please choose a product to delete'
+    }],
+    function(err, results) {
+      if (err) return reject(err);
+      resolve(results);
+    });
+  });
+};
+
 let product_menu_handler = (err, user_input) => {
   if(user_input.choice === "1") {
     show_active_products(get_active_customer().id)
@@ -73,6 +86,13 @@ let product_menu_handler = (err, user_input) => {
   } else if (user_input.choice === "3") {
 
   } else if (user_input.choice === "4") {
+    module.exports.remove_products_prompt()
+    .then( (prod_data) => {
+      remove_product(prod_data)
+      .then( () => {
+        module.exports.product_options();
+      });
+    });
 
   } else if (user_input.choice === "5") {
       const { display_welcome } = require('../ui');
