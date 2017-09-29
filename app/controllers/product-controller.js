@@ -67,7 +67,6 @@ module.exports.remove_products_prompt = () => {
       resolve(results);
     });
   });
-  display_welcome();
 };
 
 let product_menu_handler = (err, user_input) => {
