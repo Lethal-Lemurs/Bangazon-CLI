@@ -28,8 +28,5 @@ describe('product.js', () => {
       isFunction(remove_product);
     });
   });
-    
-    
-  
 
 })
