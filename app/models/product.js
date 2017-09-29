@@ -31,9 +31,20 @@ module.exports.show_all_products = () => {
 
 module.exports.show_active_products = (customer_id) => {
   return new Promise( (resolve, reject) => {
+    console.log('hello');
     db.all(`SELECT * FROM products WHERE user_id = ${customer_id}`, (err, active_prod_data) => {
       if (err) return reject(err); 
       resolve(active_prod_data);
     }); 
+  });
+};
+
+module.exports.remove_product = (product_id) => {
+  console.log("You deleted the product with id of:",product_id.choice);
+  return new Promise( (resolve, reject) => {
+    db.all(`DELETE FROM products WHERE product_id = ${product_id.choice}`, (err, product_data) => {
+      if (err) return reject(err);
+      resolve(product_data);
+    });
   });
 };
