@@ -16,7 +16,7 @@ const { prompt_new_customer, prompt_active_customer } = require('./controllers/c
 const { add_to_database } = require('./models/customer');
 const { set_active_customer, active_customer } = require('./active-customer');
 const { product_options } = require('./controllers/product-controller');
-const active = require('../active-customer');
+const active = require('./active-customer');
 //gets the active id
 let active_id = active.get_active_customer().id;
 
