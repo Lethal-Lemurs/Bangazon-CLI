@@ -1,7 +1,7 @@
 'use strict';
 const {red, magenta, blue, green, cyan} =  require('chalk');
 const prompt = require('prompt');
-const { add_product_database, show_active_products } = require('../models/product');
+const { add_product_database, edit_product, show_all_products, show_active_products,  show_all_active_products, show_edit_products} = require('../models/product');
 const { get_active_customer, no_active_customer } = require('../active-customer');
 
 // This method written by DW 
@@ -49,12 +49,81 @@ const { get_active_customer, no_active_customer } = require('../active-customer'
   };
 };
 
+module.exports.prompt_select_prod_edit = () => {
+  return new Promise( (resolve, reject) => {
+    prompt.get([{
+      name: 'choice',
+      description: 'please choose a product id to edit'
+    }],
+    function(err, results) {
+      if (err) return reject(err);
+      resolve(results);
+    });
+  });
+};
+
+module.exports.prompt_edit_product = () => {
+  if(get_active_customer().id !== null){
+    return new Promise( (resolve, reject) => {
+      prompt.get([
+        {
+          name: 'choice',
+          description: 'please choose a product id to edit'
+        },
+      {
+        name: 'name',
+        description: 'Edit product name',
+        type: 'string',
+        required: true
+      },
+      {
+        name: 'description',
+        description: 'Edit product description',
+        type: 'string',
+        required: true
+      },
+      {
+        name: 'price',
+        description: 'Edit product price',
+        type: 'string',
+        pattern: /^[0-9\.]+$/,
+        required: true
+      },
+      {
+        name: 'quantity',
+        description: 'Edit product quantity',
+        type: 'integer',
+        pattern: /^[0-9]+$/,
+        required: true
+      } 
+    ], function(err, results) {
+      if (err) return reject(err);
+      resolve(results);
+    });
+  });
+  } else {
+    return new Promise( (resolve, reject) => {
+      no_active_customer();
+      // This weird thing was told to us by Jufe
+      const { display_welcome } = require('../ui');
+      display_welcome();
+    });
+  };
+};
+
 module.exports.active_products_prompt = (active_customer_products) => {
   for(let i = 0; i < active_customer_products.length; i++) {
-    console.log(`  ${red(active_customer_products[i].product_id)}: ${active_customer_products[i].product_name}`);
+    console.log(`${red(active_customer_products[i].product_id)}: ${active_customer_products[i].product_name}`);
   };
   module.exports.product_options();
 };
+
+module.exports.edit_prod_menu = (active_customer_products) => {
+  for(let i = 0; i < active_customer_products.length; i++) {
+    console.log(`${red(active_customer_products[i].product_id)}: ${active_customer_products[i].product_name}`);
+  };
+};
+
 
 let product_menu_handler = (err, user_input) => {
   if(user_input.choice === "1") {
@@ -71,6 +140,17 @@ let product_menu_handler = (err, user_input) => {
       });
     });
   } else if (user_input.choice === "3") {
+      module.exports.prompt_edit_product()
+      .then( (prod_data) => {
+        console.log(prod_data);
+        edit_product(prod_data, get_active_customer().id)
+        .then( () => {
+          module.exports.product_options();
+        })
+        .catch( (err) => {
+          console.log(err);
+        })
+      });
 
   } else if (user_input.choice === "4") {
 
@@ -79,7 +159,7 @@ let product_menu_handler = (err, user_input) => {
       display_welcome();
   }
 
-}
+};
 
 module.exports.product_options = () => {
   if(get_active_customer().id !== null){
