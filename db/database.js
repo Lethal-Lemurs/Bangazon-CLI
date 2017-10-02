@@ -14,7 +14,8 @@ function create_db() {
   db.serialize( () => {
     db.run(`DROP TABLE IF EXISTS customers`);
     db.run(`DROP TABLE IF EXISTS paymentTypes`);
-  
+    db.run(`DROP TABLE IF EXISTS orders`);
+
     db.run(`CREATE TABLE IF NOT EXISTS customers (
       user_id INTEGER PRIMARY KEY,
       first_last TEXT NOT NULL,
@@ -29,6 +30,12 @@ function create_db() {
       account_number TEXT NOT NULL,
       payment_type TEXT NOT NULL,
       customer_id INTEGER NOT NULL)`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS orders (
+      order_id INTEGER NOT NULL PRIMARY KEY,
+      customer_id TEXT NOT NULL,
+      payment_type_id TEXT NOT NULL,
+      order_date TEXT NOT NULL)`);
 
     db.run(`CREATE TABLE IF NOT EXISTS products (
       product_id INTEGER NOT NULL PRIMARY KEY,

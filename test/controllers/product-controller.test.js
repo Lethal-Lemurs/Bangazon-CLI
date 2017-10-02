@@ -2,6 +2,7 @@
 
 const chai = require('chai');
 const { assert, assert: { isFunction, equal, isObject, deepEqual } } = require('chai');
+
 const chai_as_promised = require("chai-as-promised");
 chai.use(chai_as_promised);
 const { prompt_new_product, product_options, active_products_prompt, remove_products_prompt } = require('../../app/controllers/product-controller');

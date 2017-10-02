@@ -93,13 +93,14 @@ let product_menu_handler = (err, user_input) => {
         module.exports.product_options();
       });
     });
-
   } else if (user_input.choice === "5") {
-      const { display_welcome } = require('../ui');
-      display_welcome();
-  }
-
-}
+    const { display_welcome } = require('../ui');
+    display_welcome();
+  } else {
+    console.log(red("PLEASE SELECT A VALID OPTION"));
+    module.exports.product_options();
+  };
+};
 
 module.exports.product_options = () => {
   if(get_active_customer().id !== null){
