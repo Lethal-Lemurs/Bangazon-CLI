@@ -53,7 +53,7 @@ module.exports.active_products_prompt = (active_customer_products) => {
   for(let i = 0; i < active_customer_products.length; i++) {
     console.log(`  ${red(active_customer_products[i].product_id)}: ${active_customer_products[i].product_name}`);
   };
-  module.exports.product_options();
+  // module.exports.product_options();
 };
 
 module.exports.remove_products_prompt = () => {
@@ -86,12 +86,18 @@ let product_menu_handler = (err, user_input) => {
   } else if (user_input.choice === "3") {
 
   } else if (user_input.choice === "4") {
+    show_active_products(get_active_customer().id)
+    .then( (active_customer_products) => {
+      module.exports.active_products_prompt(active_customer_products);
+    })
     module.exports.remove_products_prompt()
     .then( (prod_data) => {
-      remove_product(prod_data)
+      remove_product(prod_data, get_active_customer().id)
       .then( () => {
         module.exports.product_options();
       });
+    }).catch( (err) => {
+      console.log(err);
     });
   } else if (user_input.choice === "5") {
     const { display_welcome } = require('../ui');
