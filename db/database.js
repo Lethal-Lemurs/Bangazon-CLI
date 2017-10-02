@@ -28,7 +28,7 @@ function create_db() {
       payType_id INTEGER NOT NULL PRIMARY KEY,
       account_number TEXT NOT NULL,
       payment_type TEXT NOT NULL,
-      customer_id TEXT NOT NULL)`);
+      customer_id INTEGER NOT NULL)`);
 
     db.run(`CREATE TABLE IF NOT EXISTS products (
       product_id INTEGER NOT NULL PRIMARY KEY,
@@ -37,7 +37,18 @@ function create_db() {
       product_price TEXT NOT NULL,
       user_id INTEGER NULL,
       product_qty INTEGER NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES customers(user_id))`);  
+      FOREIGN KEY (user_id) REFERENCES customers(user_id))`);
+      
+      db.run(`CREATE TABLE IF NOT EXISTS orders (
+        order_id INTEGER NOT NULL PRIMARY KEY,
+        user_id INTEGER NULL,
+        payType_id INTEGER NULL,
+        FOREIGN KEY (user_id) REFERENCES customers(user_id),
+        FOREIGN KEY (payType_id) REFERENCES paymentTypes(payType_id))`);
+  
+      db.run(`CREATE TABLE IF NOT EXISTS order_product (
+        order_id INTEGER NULL,
+        product_id INTEGER NULL)`);
     
     customers.forEach(({ first_last, street, city, state, zip, phone}) => {
         db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone)

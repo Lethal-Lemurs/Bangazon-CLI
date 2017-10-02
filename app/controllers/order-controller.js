@@ -2,7 +2,7 @@
 
 const {red, magenta, blue, green, cyan} =  require('chalk');
 const prompt = require('prompt');
-const {  } = require('../models/order');
+const { post_product_order, update_join_table, get_customer_order, put_product_order } = require('../models/order');
 const { show_all_products } =require('../models/product');
 const { get_active_customer, no_active_customer } = require('../active-customer');
 
@@ -19,15 +19,40 @@ module.exports.add_order_prompt = () => {
   });
 };
 
+module.exports.order_product_display = (products) => {
+  for(let i = 0; i < products.length; i++) {
+    console.log(`  ${red(products[i].product_id)}: ${products[i].product_name}`);
+  };
+  
+};
+
 
 let order_menu_handler = (err, user_input) => {
   if(user_input.choice === "1") {
-    // console.log('1');
-    // console.log(show_all_products());
-    // show_all_products();
-    // .then( () => {
-      module.exports.add_order_prompt();
-    // });
+    show_all_products()
+    .then( (product_data) => {
+      module.exports.order_product_display(product_data);
+      module.exports.add_order_prompt()
+      .then( (results) => {
+        get_customer_order(get_active_customer().id)
+          .then( (data) => {
+            if(data.user_id === get_active_customer().id) {
+              put_product_order(get_active_customer().id)
+                .then( () => {
+                  module.exports.order_options()
+                })
+            }else{
+              post_product_order(get_active_customer().id)
+              .then( (lastID) => {
+                update_join_table(get_active_customer().id, lastID, results.choice)
+                .then( () => {
+                  module.exports.order_options()
+                })
+              })
+            }
+          })
+      });
+    });
   } else if (user_input.choice === "2") {
     console.log('2');
   } else if (user_input.choice === "3") {
