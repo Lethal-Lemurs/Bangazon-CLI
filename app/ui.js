@@ -53,6 +53,16 @@ let main_menu_handler = (err, user_input) => {
       product_options();
     } else if (user_input.choice === '5'){
       prompt_new_order();
+    } else if (user_input.choice === '7'){
+      console.reset = function () {
+        return process.stdout.write('\x1Bc');
+        // http://www.ascii-code.net/
+        // https://gist.github.com/KenanSulayman/4990953
+      }
+      console.reset();
+      console.log(' Thank you for choosing to shop with Bangazon!');
+      // console.log();
+      // process.exit();
     } else {
     console.log(red("PLEASE SELECT A VALID OPTION"));
     module.exports.display_welcome();
