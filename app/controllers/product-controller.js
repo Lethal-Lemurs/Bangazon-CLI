@@ -111,7 +111,7 @@ module.exports.edit_prod_menu = (active_customer_products) => {
     Name: ${active_customer_products[i].product_name},
     Description: ${active_customer_products[i].product_description},
     Price: $${active_customer_products[i].product_price},
-    Price: ${active_customer_products[i].product_qty}`);
+    Quantity: ${active_customer_products[i].product_qty}`);
   };
 };
 
@@ -157,19 +157,14 @@ let product_menu_handler = (err, user_input) => {
       })
       module.exports.prompt_edit_product()
       .then( (prod_data) => {//TODO: add feedback that user selected 
-        if(prod_data.choice <= num_products){
           edit_product(prod_data, get_active_customer().id)
           .then( () => {
             module.exports.product_options();
           })
+        })
           .catch( (err) => {
             console.log(err);
           })
-        } else {
-          console.log(red("Product does not exist!"));
-          module.exports.product_options();
-        }
-      });
   } else if (user_input.choice === "4") {
     show_active_products(get_active_customer().id)
     .then( (active_customer_products) => {

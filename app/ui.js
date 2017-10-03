@@ -48,9 +48,7 @@ let main_menu_handler = (err, user_input) => {
       product_options();      
     } else if (user_input.choice === '5'){
       order_options();
-    }
-      product_options();
-    } else if (user_input.choice === '5'){
+    } else if (user_input.choice === '6'){
       prompt_new_order();
     } else if (user_input.choice === '7'){
       console.reset = function () {
