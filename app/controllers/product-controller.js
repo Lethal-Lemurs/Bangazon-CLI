@@ -172,7 +172,6 @@ let product_menu_handler = (err, user_input) => {
       })
       module.exports.prompt_edit_product()
       .then( (prod_data) => {//TODO: add feedback that user selected 
-        console.log(`prod_data`, prod_data);
         if(prod_data.choice <= num_products){
           edit_product(prod_data, get_active_customer().id)
           .then( () => {
@@ -181,7 +180,10 @@ let product_menu_handler = (err, user_input) => {
           .catch( (err) => {
             console.log(err);
           })
-        }  
+        } else {
+          console.log(red("Product does not exist!"));
+          module.exports.product_options();
+        }
       });
   } else if (user_input.choice === "4") {
     module.exports.remove_products_prompt()
