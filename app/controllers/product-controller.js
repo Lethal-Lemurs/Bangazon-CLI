@@ -50,20 +50,6 @@ const { get_active_customer, no_active_customer } = require('../active-customer'
     });
   };
 };
-//Displays if user doesn't select a number for which product to edit. Made by Jules. TODO: Currently not called.
-module.exports.prompt_select_prod_edit = () => {
-  return new Promise( (resolve, reject) => {
-    prompt.get(
-    [{
-      name: 'choice',
-      description: 'Please choose a product to edit!!!'
-    }],
-    function(err, results) {
-      if (err) return reject(err);
-      resolve(results);
-    });
-  });
-};
 
 module.exports.prompt_edit_product = () => {
   if(get_active_customer().id !== null){
@@ -167,7 +153,6 @@ let product_menu_handler = (err, user_input) => {
       show_active_products(get_active_customer().id)
       .then( (active_customer_products) => {
         module.exports.edit_prod_menu(active_customer_products);
-        console.log(`num`, num_products);
         num_products = active_customer_products.length;
       })
       module.exports.prompt_edit_product()
