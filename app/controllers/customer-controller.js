@@ -2,6 +2,7 @@
 const {red, magenta, blue} = require("chalk");
 const prompt = require('prompt');
 const { show_all_customers } = require('../models/customer.js');
+const {} = require('../ui.js')
 
 module.exports.prompt_new_customer = () => {
   return new Promise( (resolve, reject) => {
@@ -46,19 +47,23 @@ module.exports.prompt_active_customer = () => {
   return new Promise( (resolve, reject) => {
     show_all_customers()
     .then( (cust_data) => {
-        cust_data.forEach(function(user){
-          console.log(`  ${magenta(user.user_id)}: ${user.first_last}`);
-        })
-        prompt.get([{
-          name: 'id',
-          description: 'Please select a customer by id'
-        }], function(err, results) {
-          if (err) reject(err);
+      cust_data.forEach(function(user){
+        console.log(`  ${magenta(user.user_id)}: ${user.first_last}`);
+      })
+      let regex = new RegExp("^[1-" + cust_data.length + "]$");
+      prompt.get([{
+        name: 'id',
+        description: 'Please select a customer by id',
+        pattern: regex,
+        message: 'you must enter in a valid ID number',
+        required: true
+      }], function(err, results) {
+        if (err) reject(err);
           resolve(results);
-        });
+      });
     })
     .catch( (err) => {
       console.log(err);
-    })
+    });
   });
 };

@@ -22,7 +22,7 @@ module.exports.add_product_database = (new_prod_data, user_id) => {
 
 module.exports.show_all_products = () => {
   return new Promise( (resolve, reject) => {
-    db.all(`SELECT product_id, product_name FROM products`, (err, prod_data) => {
+    db.all(`SELECT * FROM products`, (err, prod_data) => {
       if (err) return reject(err);
       resolve(prod_data)
     });
@@ -39,6 +39,7 @@ module.exports.show_active_products = (customer_id) => {
 }
 
 module.exports.edit_product = (update_product, active_id) => {
+  console.log(`${update_product.name}has been edited!`);    
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM products WHERE user_id = ${active_id}`);      
     db.run(`DELETE FROM products WHERE product_id = ${update_product.choice} AND user_id = ${active_id}`);
@@ -49,12 +50,14 @@ module.exports.edit_product = (update_product, active_id) => {
       resolve(data);
     });
   });
-}
+};
 
-module.exports.show_all_active_products = (id) => {
+module.exports.remove_product = (product_id) => {
+  console.log("You deleted the product with id of:",product_id.choice);
   return new Promise( (resolve, reject) => {
-    db.all(`SELECT * FROM products WHERE user_id = ${id}`, (err, product_data) => {
-      resolve(product_data)
+    db.all(`DELETE FROM products WHERE product_id = ${product_id.choice}`, (err, product_data) => {
+      if (err) return reject(err);
+      resolve(product_data);
     });
-   });
-  } 
+  });
+};
