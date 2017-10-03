@@ -2,21 +2,23 @@
 const chai = require('chai');
 const { assert, assert: { isFunction, equal, isObject, deepEqual } } = require('chai');
 const orders = require('../../app/models/order');
-describe('Orders Model', ()=>{
-  describe('get_orders', ()=>{
-    it('should exist', ()=>{
-      isFunction(orders.get_orders);
-    });
-    it('should return an order (object?)', ()=>{
-      return order.get_orders().then((data)=>{
-        isObject(data);
-      })
+
+describe('Orders Model', () => {
+  describe('put_product_order', () => {
+    it('should exist', () => {
+      isFunction(orders.put_product_order);
     });
   })
-  describe('', ()=>{
 
+  describe('post_product_order', () => {
+    it('should exist', () => {
+      isFunction(orders.post_product_order);
+    });
+  })
+
+  describe('get_customer_order', () => {
+    it('should exist', () => {
+      isFunction(orders.get_customer_order);
+    });
   })
 })
-// INSERT INTO products (product_name, product_description, 
-//   product_price, user_id, product_qty) 
-//   VALUES( "banana", "fruit", "1", 1, 1)

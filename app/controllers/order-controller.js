@@ -2,7 +2,7 @@
 
 const {red, magenta, blue, green, cyan} =  require('chalk');
 const prompt = require('prompt');
-const { post_product_order, update_join_table, get_customer_order, put_product_order } = require('../models/order');
+const { post_product_order, get_customer_order, put_product_order } = require('../models/order');
 const { show_all_products } =require('../models/product');
 const { get_active_customer, no_active_customer } = require('../active-customer');
 
@@ -12,9 +12,9 @@ module.exports.add_order_prompt = () => {
       name: 'choice',
       description: 'Please Choose A Product To Add To THe CART'
     }],
-    function(err, results) {
+    function(err, product_choice) {
       if (err) return reject(err);
-      resolve(results);
+      resolve(product_choice);
     });
   });
 };
@@ -22,10 +22,8 @@ module.exports.add_order_prompt = () => {
 module.exports.order_product_display = (products) => {
   for(let i = 0; i < products.length; i++) {
     console.log(`  ${red(products[i].product_id)}: ${products[i].product_name}`);
-  };
-  
+  }; 
 };
-
 
 let order_menu_handler = (err, user_input) => {
   if(user_input.choice === "1") {
@@ -33,24 +31,21 @@ let order_menu_handler = (err, user_input) => {
     .then( (product_data) => {
       module.exports.order_product_display(product_data);
       module.exports.add_order_prompt()
-      .then( (results) => {
+      .then( (product_choice) => {
         get_customer_order(get_active_customer().id)
-          .then( (data) => {
-            if(data.user_id === get_active_customer().id) {
-              put_product_order(get_active_customer().id)
-                .then( () => {
-                  module.exports.order_options()
-                })
-            }else{
-              post_product_order(get_active_customer().id)
-              .then( (lastID) => {
-                update_join_table(get_active_customer().id, lastID, results.choice)
-                .then( () => {
-                  module.exports.order_options()
-                })
-              })
-            }
-          })
+        .then( (data) => {
+          if (data.length) {
+            put_product_order(data[0].order_id, get_active_customer().id, product_choice.choice)
+            .then( () => {
+              module.exports.order_options();
+            })
+          } else {
+            post_product_order(get_active_customer().id, product_choice.choice)
+            .then( () => {
+              module.exports.order_options();
+            });                              
+          };
+        });
       });
     });
   } else if (user_input.choice === "2") {
@@ -61,9 +56,8 @@ let order_menu_handler = (err, user_input) => {
     console.log('4');
       const { display_welcome } = require('../ui');
       display_welcome();
-  }
-
-}
+  };
+};
 
 module.exports.order_options = () => {
   if(get_active_customer().id !== null){
@@ -80,7 +74,7 @@ module.exports.order_options = () => {
           name: 'choice',
           description: 'Please make a selection'
         }], order_menu_handler);
-    })
+    });
   } else {
     return new Promise( (resolve, reject) => {
       no_active_customer();
@@ -88,5 +82,5 @@ module.exports.order_options = () => {
       const { display_welcome } = require('../ui');
       display_welcome();
     });
-  }
-}
+  };
+};
