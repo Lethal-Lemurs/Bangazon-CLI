@@ -39,7 +39,7 @@ module.exports.show_active_products = (customer_id) => {
 }
 
 module.exports.edit_product = (update_product, active_id) => {
-  console.log(`${update_product.name}has been edited!`);    
+  console.log(`${update_product.name} has been edited!`);    
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM products WHERE user_id = ${active_id}`);      
     db.run(`DELETE FROM products WHERE product_id = ${update_product.choice} AND user_id = ${active_id}`);

@@ -50,13 +50,13 @@ const { get_active_customer, no_active_customer } = require('../active-customer'
     });
   };
 };
-
+//Displays if user doesn't select a number for which product to edit. Made by Jules. TODO: Currently not called.
 module.exports.prompt_select_prod_edit = () => {
   return new Promise( (resolve, reject) => {
     prompt.get(
     [{
       name: 'choice',
-      description: 'Please choose a product i!!! to edit'
+      description: 'Please choose a product to edit!!!'
     }],
     function(err, results) {
       if (err) return reject(err);
@@ -70,7 +70,7 @@ module.exports.prompt_edit_product = () => {
     return new Promise( (resolve, reject) => {
       prompt.get([{
           name: 'choice',
-          description: 'Please choose a product IDDDDDD to edit'
+          description: 'Please choose a product ID to edit'
       },
       {
         name: 'name',
@@ -133,7 +133,7 @@ module.exports.remove_products_prompt = () => {
   return new Promise( (resolve, reject) => {
     prompt.get([{
       name: 'choice',
-      description: 'please choose a product to delete'
+      description: 'Please choose a product to delete!'
     }],
     function(err, results) {
       if (err) return reject(err);
@@ -143,6 +143,7 @@ module.exports.remove_products_prompt = () => {
 };
 
 let product_menu_handler = (err, user_input) => {
+  let num_products = null;
   if(user_input.choice === "1") {
     show_active_products(get_active_customer().id)
     .then( (active_customer_products) => {
@@ -162,20 +163,25 @@ let product_menu_handler = (err, user_input) => {
         console.log(err);
       })
     });
-  } else if (user_input.choice === "3") {
+  } else if (user_input.choice === "3") {//TODO: Fix edit issues, edit products will create products if the choice doesn't exist
       show_active_products(get_active_customer().id)
       .then( (active_customer_products) => {
         module.exports.edit_prod_menu(active_customer_products);
+        console.log(`num`, num_products);
+        num_products = active_customer_products.length;
       })
       module.exports.prompt_edit_product()
-      .then( (prod_data) => {
-        edit_product(prod_data, get_active_customer().id)
-        .then( () => {
-          module.exports.product_options();
-        })
-        .catch( (err) => {
-          console.log(err);
-        })
+      .then( (prod_data) => {//TODO: add feedback that user selected 
+        console.log(`prod_data`, prod_data);
+        if(prod_data.choice <= num_products){
+          edit_product(prod_data, get_active_customer().id)
+          .then( () => {
+            module.exports.product_options();
+          })
+          .catch( (err) => {
+            console.log(err);
+          })
+        }  
       });
   } else if (user_input.choice === "4") {
     module.exports.remove_products_prompt()
@@ -205,7 +211,7 @@ module.exports.product_options = () => {
   ${magenta('5.')} Go back to the main menu`);
         prompt.get([{
           name: 'choice',
-          description: 'Please make a selection'
+          description: 'Please make a selection!'
         }], product_menu_handler);
     })
   } else {
