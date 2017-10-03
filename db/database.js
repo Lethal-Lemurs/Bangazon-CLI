@@ -31,12 +31,6 @@ function create_db() {
       payment_type TEXT NOT NULL,
       customer_id INTEGER NOT NULL)`);
 
-    db.run(`CREATE TABLE IF NOT EXISTS orders (
-      order_id INTEGER NOT NULL PRIMARY KEY,
-      customer_id TEXT NOT NULL,
-      payment_type_id TEXT NOT NULL,
-      order_date TEXT NOT NULL)`);
-
     db.run(`CREATE TABLE IF NOT EXISTS products (
       product_id INTEGER NOT NULL PRIMARY KEY,
       product_name TEXT NOT NULL,
