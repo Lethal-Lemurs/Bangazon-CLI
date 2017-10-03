@@ -20,7 +20,6 @@ const { prompt_new_order } = require('./controllers/order-controller');
 const { show_all_products } = require('./models/product')
 const active = require('./active-customer');
 
-
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
