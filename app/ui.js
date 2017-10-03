@@ -15,6 +15,7 @@ const { prompt_new_customer, prompt_active_customer } = require('./controllers/c
 const { add_to_database, return_active_customer } = require('./models/customer');
 const { set_active_customer, active_customer } = require('./active-customer');
 const { product_options } = require('./controllers/product-controller');
+const { order_options } = require('./controllers/order-controller');
 const { prompt_new_order } = require('./controllers/order-controller');
 const { show_all_products } = require('./models/product')
 const active = require('./active-customer');
@@ -44,9 +45,23 @@ let main_menu_handler = (err, user_input) => {
         add_payment_database(payment_data, active.get_active_customer().id);
       })
     } else if (user_input.choice === '4'){
+      product_options();      
+    } else if (user_input.choice === '5'){
+      order_options();
+    }
       product_options();
     } else if (user_input.choice === '5'){
       prompt_new_order();
+    } else if (user_input.choice === '7'){
+      console.reset = function () {
+        return process.stdout.write('\x1Bc');
+        // http://www.ascii-code.net/
+        // https://gist.github.com/KenanSulayman/4990953
+      }
+      console.reset();
+      console.log(' Thank you for choosing to shop with Bangazon!');
+      // console.log();
+      // process.exit();
     } else {
     console.log(red("PLEASE SELECT A VALID OPTION"));
     module.exports.display_welcome();
@@ -64,9 +79,9 @@ module.exports.display_welcome = () => {
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
   ${magenta('4.')} Product options
-  ${magenta('5.')} Add product to shopping cart
-  ${magenta('6.')} Complete an order
-  ${magenta('7.')} Leave Bangazon!`);
+  ${magenta('5.')} Order Options
+  ${magenta('7.')} See product popularity
+  ${magenta('8.')} Leave Bangazon!`);
     prompt.get([{
       name: 'choice',
       description: 'Please make a selection'

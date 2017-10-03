@@ -51,6 +51,7 @@ module.exports.prompt_active_customer = () => {
         console.log(`  ${magenta(user.user_id)}: ${user.first_last}`);
       })
       let regex = new RegExp("^[1-" + cust_data.length + "]$");
+      console.log(cust_data.length);
       prompt.get([{
         name: 'id',
         description: 'Please select a customer by id',

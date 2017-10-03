@@ -171,12 +171,18 @@ let product_menu_handler = (err, user_input) => {
         }
       });
   } else if (user_input.choice === "4") {
+    show_active_products(get_active_customer().id)
+    .then( (active_customer_products) => {
+      module.exports.active_products_prompt(active_customer_products);
+    })
     module.exports.remove_products_prompt()
     .then( (prod_data) => {
-      remove_product(prod_data)
+      remove_product(prod_data, get_active_customer().id)
       .then( () => {
         module.exports.product_options();
       });
+    }).catch( (err) => {
+      console.log(err);
     });
   } else if (user_input.choice === "5") {
     const { display_welcome } = require('../ui');

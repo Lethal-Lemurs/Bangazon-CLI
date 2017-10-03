@@ -35,6 +35,8 @@ module.exports.show_active_products = (customer_id) => {
       if (err) return reject(err); 
       resolve(active_prod_data);
     }); 
+  }).catch( (err) => {
+    console.log(err);
   });
 }
 
