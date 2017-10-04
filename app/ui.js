@@ -30,7 +30,10 @@ let main_menu_handler = (err, user_input) => {
     if (user_input.choice === '1'){
       prompt_new_customer()
       .then( (cust_data) => {
-        add_to_database(cust_data);
+        add_to_database(cust_data)
+        .then( () => {
+          module.exports.display_welcome();
+        })
       });
     } else if (user_input.choice === '2'){
       prompt_active_customer()
@@ -43,7 +46,10 @@ let main_menu_handler = (err, user_input) => {
     } else if (user_input.choice === '3'){
       prompt_new_payment_type()
       .then( (payment_data) => {
-        add_payment_database(payment_data, active.get_active_customer().id);
+        add_payment_database(payment_data, active.get_active_customer().id)
+        .then( () => {
+          module.exports.display_welcome();
+        })
       })
     } else if (user_input.choice === '4'){
       product_options();      
@@ -59,8 +65,6 @@ let main_menu_handler = (err, user_input) => {
       }
       console.reset();
       console.log(' Thank you for choosing to shop with Bangazon!');
-      // console.log();
-      // process.exit();
     } else {
     console.log(red("PLEASE SELECT A VALID OPTION"));
     module.exports.display_welcome();
@@ -79,8 +83,7 @@ module.exports.display_welcome = () => {
   ${magenta('3.')} Create a payment option
   ${magenta('4.')} Product options
   ${magenta('5.')} Order Options
-  ${magenta('7.')} See product popularity
-  ${magenta('8.')} Leave Bangazon!`);
+  ${magenta('7.')} Leave Bangazon!`);
     prompt.get([{
       name: 'choice',
       description: 'Please make a selection'

@@ -7,14 +7,19 @@ const db = new Database(path.join(__dirname, '..', '..', 'db', 'bangazon.sqlite'
 
 // functions written by GV, DB, JS, SS.
 module.exports.add_to_database = (new_cust_data) => {
-  db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone) VALUES(
-    "${new_cust_data.name}",
-    "${new_cust_data.street}",
-    "${new_cust_data.city}",
-    "${new_cust_data.state}",
-    "${new_cust_data.zip}",
-    "${new_cust_data.phone}"
-  )`);
+  return new Promise( (resolve, reject) => {
+    db.run(`INSERT INTO customers (first_last, street, city, state, zip, phone) VALUES(
+      "${new_cust_data.name}",
+      "${new_cust_data.street}",
+      "${new_cust_data.city}",
+      "${new_cust_data.state}",
+      "${new_cust_data.zip}",
+      "${new_cust_data.phone}"
+    )`, (err, data) => {
+      if(err) return reject(err);
+      resolve(data);
+    });
+  })
 };
 
 module.exports.show_all_customers = () => {

@@ -29,11 +29,13 @@ module.exports.prompt_new_customer = () => {
     }, {
       name: 'zip',
       description: 'Enter postal code',
+      pattern:"^[0-9]+$",
       type: 'string',
       required: true
     }, {
       name: 'phone',
       description: 'Enter phone number (xxx-yyy-zzzz)',
+      pattern:"^[0-9]+$",
       type: 'string',
       required: true
     }], function(err, results) {
@@ -51,7 +53,6 @@ module.exports.prompt_active_customer = () => {
         console.log(`  ${magenta(user.user_id)}: ${user.first_last}`);
       })
       let regex = new RegExp("^[1-" + cust_data.length + "]$");
-      console.log(cust_data.length);
       prompt.get([{
         name: 'id',
         description: 'Please select a customer by id',
