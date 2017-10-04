@@ -149,22 +149,46 @@ let product_menu_handler = (err, user_input) => {
         console.log(err);
       })
     });
-  } else if (user_input.choice === "3") {//TODO: Fix edit issues, edit products will create products if the choice doesn't exist
+    // DB & SS
+  } else if (user_input.choice === "3") {
+    // define a variable to make active_customer_products available later in the function
+    // define an array to store the possible ids
+      let active_product_ids = [];
+      let num_products;
       show_active_products(get_active_customer().id)
       .then( (active_customer_products) => {
+        num_products = active_customer_products;
+        // adding the active ids to our array.
+        for (let i = 0; i < active_customer_products.length; i++) {
+          active_product_ids.push(active_customer_products[i].product_id);
+        };
         module.exports.edit_prod_menu(active_customer_products);
-        num_products = active_customer_products.length;
+      }).catch( (err) => {
+        console.log(err);
       })
       module.exports.prompt_edit_product()
-      .then( (prod_data) => {//TODO: add feedback that user selected 
-          edit_product(prod_data, get_active_customer().id)
-          .then( () => {
+      .then( (prod_data) => {
+        // loop over our array and check it against user input.
+        let match = false;
+        for (let i = 0; i < num_products.length; i++) {
+          if (prod_data.choice == active_product_ids[i]) {
+             match = true;
+          }
+        };
+        // check against our previously declared varaiables state of true or false.
+          if(match == true){
+            edit_product(prod_data, get_active_customer().id)
+            .then( () => {
+              module.exports.product_options();
+            })
+            .catch( (err) => {
+              console.log(err);
+            })
+          } else {
+            console.log(red("Product does not exist!"));
             module.exports.product_options();
-          })
-        })
-          .catch( (err) => {
-            console.log(err);
-          })
+          }
+      });
   } else if (user_input.choice === "4") {
     show_active_products(get_active_customer().id)
     .then( (active_customer_products) => {
