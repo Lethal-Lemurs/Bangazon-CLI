@@ -2,7 +2,8 @@
 const chai = require('chai');
 const { assert, assert: { isFunction, equal, isObject, deepEqual, isString } } = require('chai');
 const pay = require('../../app/models/payment');
-
+const chai_as_promised = require("chai-as-promised");
+chai.use(chai_as_promised);
 let tests = [
   { account_number: "234", payment_type: "Visa", customer_id: "1" }
 ]
@@ -31,12 +32,6 @@ describe('Payments-Model', ()=>{
   describe('get_payment_type', ()=>{
     it('should exist', ()=>{
       isFunction(pay.get_payment_type);
-    })
-    it('should return a string', ()=>{
-      console.log(`payment type`, pay.get_payment_type("4"));
-      pay.get_payment_type("4").then((data)=>{
-        isString(data);
-      })   
     })
   })
 })
