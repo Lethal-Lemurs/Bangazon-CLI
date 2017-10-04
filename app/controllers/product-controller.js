@@ -3,7 +3,7 @@ const {red, magenta, blue, green, cyan} =  require('chalk');
 const prompt = require('prompt');
 // const optimist = require('optimist');
 // prompt.override = optimist.argv;
-const { add_product_database, edit_product, show_all_products, show_active_products,  show_all_active_products, show_edit_products, choose_edit_product} = require('../models/product');
+const { add_product_database, edit_product, show_all_products, show_active_products,  show_all_active_products, show_edit_products, choose_edit_product, remove_product} = require('../models/product');
 const { get_active_customer, no_active_customer } = require('../active-customer');
 
 // This method written by DW 
