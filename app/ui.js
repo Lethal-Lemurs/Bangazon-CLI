@@ -20,7 +20,6 @@ const { prompt_new_order } = require('./controllers/order-controller');
 const { show_all_products } = require('./models/product')
 const active = require('./active-customer');
 
-
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
@@ -55,7 +54,7 @@ let main_menu_handler = (err, user_input) => {
       product_options();      
     } else if (user_input.choice === '5'){
       order_options();
-    } else if (user_input.choice === '5'){
+    } else if (user_input.choice === '6'){
       prompt_new_order();
     } else if (user_input.choice === '7'){
       console.reset = function () {

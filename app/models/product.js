@@ -31,13 +31,26 @@ module.exports.show_all_products = () => {
 
 module.exports.show_active_products = (customer_id) => {
   return new Promise( (resolve, reject) => {
-    console.log('hello');
     db.all(`SELECT * FROM products WHERE user_id = ${customer_id}`, (err, active_prod_data) => {
       if (err) return reject(err); 
       resolve(active_prod_data);
     }); 
   }).catch( (err) => {
     console.log(err);
+  });
+}
+
+module.exports.edit_product = (update_product, active_id) => {
+  console.log(`${update_product.name} has been edited!`);    
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM products WHERE user_id = ${active_id}`);      
+    db.run(`DELETE FROM products WHERE product_id = ${update_product.choice} AND user_id = ${active_id}`);
+    db.run(`INSERT INTO products (user_id, product_id, product_name, product_description, product_price, product_qty) VALUES (
+    ${active_id}, ${update_product.choice}, "${update_product.name}", "${update_product.description}", "${update_product.price}", "${update_product.quantity}")`,
+    (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
   });
 };
 
