@@ -8,6 +8,7 @@ module.exports.prompt_new_payment_type = () => {
     prompt.get([{
       name: 'account_number',
       description: 'Enter Account Number',
+      pattern:"^[0-9]+$",
       type: 'string',
       required: true
     }, {

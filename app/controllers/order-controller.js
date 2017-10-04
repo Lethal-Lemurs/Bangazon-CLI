@@ -49,6 +49,9 @@ let order_menu_handler = (err, user_input) => {
       });
     });
   } else if (user_input.choice === "2") {
+
+    
+
     console.log('2');
   } else if (user_input.choice === "3") {
     console.log('3');
@@ -67,9 +70,8 @@ module.exports.order_options = () => {
       ${green('Order Options:')}
       **************************
   ${magenta('1.')} Add A Product To Cart
-  ${magenta('2.')} Remove A Product From Cart
-  ${magenta('3.')} Complete An Order
-  ${magenta('4.')} Go Back To The Main-Menu`);
+  ${magenta('2.')} Complete An Order
+  ${magenta('3.')} Go Back To The Main-Menu`);
         prompt.get([{
           name: 'choice',
           description: 'Please make a selection'
