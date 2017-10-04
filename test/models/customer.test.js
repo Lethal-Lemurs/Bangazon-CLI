@@ -1,7 +1,7 @@
 'use strict';
 const chai = require('chai');
 const { assert: { isFunction, isArray, isNumber } } = require('chai');
-const customer = require('../../app/models/Customer.js');
+const customer = require('../../app/models/customer.js');
 const chai_as_promised = require("chai-as-promised");
 chai.use(chai_as_promised);
 
