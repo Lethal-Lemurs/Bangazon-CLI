@@ -1,7 +1,9 @@
 'use strict';
-
-const { assert: { isFunction, isArray } } = require('chai');
-const customer = require('../../app/models/Customer.js');
+const chai = require('chai');
+const { assert: { isFunction, isArray, isNumber } } = require('chai');
+const customer = require('../../app/models/customer.js');
+const chai_as_promised = require("chai-as-promised");
+chai.use(chai_as_promised);
 
 // Test written by GV, DB, JS, SS.
 // tests addToDatabase and getCustDatabase in models/Customer.js
@@ -24,5 +26,14 @@ describe('Customer.js', () => {
       })
     });
   });
-
+  describe('return_active_customer', () => {
+    it('should exist', () => {
+      isFunction(customer.return_active_customer);
+    });
+    it('should return an number', () => {
+      return customer.return_active_customer(1).then( (data) => {
+        isNumber(data);
+      })
+    });
+  });
 });
